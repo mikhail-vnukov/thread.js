@@ -1,0 +1,3 @@
+{"ts":1350852046272,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"thread.js\n=========\n\nMultithreading in browser javascript"]],"start1":0,"start2":0,"length1":0,"length2":57}]],"length":57}
+{"contributors":[],"silentsave":false,"ts":1350852106111,"patch":[[{"diffs":[[0,"vascript"],[1,"\n\nThis is intented to make available real javascript multithreading in any browser"]],"start1":49,"start2":49,"length1":8,"length2":90}]],"length":139,"saved":false}
+{"ts":1350852191356,"patch":[[{"diffs":[[0,"g in any browser"],[1,"s"]],"start1":123,"start2":123,"length1":16,"length2":17}]],"length":140,"saved":false}
