@@ -5,14 +5,35 @@ var stream;
 function messages(response) {
     console.log("Request handler 'message' was called.");
     stream = response;
-    stream.writeHead(200, {"Content-Type": "text/html"});
-    stream.write("World!");
+
+stream.writeHead(200, { 
+        'Content-Type': 'text/html;charset=utf-8; boundary=boundary',
+        'Access-Control-Allow-Origin' : '*',
+        'Transfer-Encoding': 'chunked',
+        'Connection': 'keep-alive'
+});
+    // stream.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8', 'Transfer-Encoding': 'chunked'});
+}
+
+function stop(response, request) {
+    console.log("Request handler 'stop' was called.");
+  stream.end();
+
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.end("OK", 'utf-8');
 }
 
 function run(response, request) {
-  stream.sendBody(request);
+  console.log("Request handler 'run' was called.");
+  stream.write("<script>console.log(\"Hello back\") </script>");
 
-  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.writeHead(200, { 
+    'Content-Type': 'text/html',
+    "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+    "Pragma":"no-cache",
+    "Expires": 0
+
+     });
   response.end("OK", 'utf-8');
 }
 
@@ -74,4 +95,5 @@ exports.upload = upload;
 exports.show = show;
 exports.messages = messages;
 exports.run = run;
+exports.stop = stop;
 
