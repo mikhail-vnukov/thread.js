@@ -1,14 +1,35 @@
 <html>
 <head>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-</head>
-<body>
-Hello
-<span id="para"/>
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>   
+  	<script>
+  		$("body").ready(function() {
+	  		function sleep(milliSeconds) {
+	       		var startTime = new Date().getTime(); // get the current time         
+	       		while (new Date().getTime() < startTime + milliSeconds); // hog cpu       
+	   		}
+	       	window.frames[0].window.sleep = sleep;
+	       	window.frames[0].window.$ = $       
+      
+	       	var thread = function() {
+	       		console.log("Start"); 
+	       		for(var i = 0; i<10; i++) {
+	       			sleep(1000); 
+	       			$("#para").text($("#para").text() + i)
+	       		} 
+	       	}
+			$.post("/run", thread.toString());
+		    thread()   
 
-<iframe id="ifarme1" src="/messages"/>
-<iframe id="ifarme2"/>
-<iframe id="ifarme3"/>
+  		})
+	</script> 
+</head> 
+
+<body> 
+	Hello <span id="para"></span>
+
+	<iframe id="ifarme1" src="/messages"/>
+	<iframe id="ifarme2"/>
+	<iframe id="ifarme3"/>
 </body>
 </html>

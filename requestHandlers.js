@@ -6,7 +6,7 @@ function messages(response) {
     console.log("Request handler 'message' was called.");
     stream = response;
 
-stream.writeHead(200, { 
+    stream.writeHead(200, { 
         'Content-Type': 'text/html;charset=utf-8; boundary=boundary',
         'Access-Control-Allow-Origin' : '*',
         'Transfer-Encoding': 'chunked',
@@ -25,15 +25,19 @@ function stop(response, request) {
 
 function run(response, request) {
   console.log("Request handler 'run' was called.");
-  stream.write("<script>console.log(\"Hello back\") </script>");
+  var data = "";
+  request.on('data', function (chunk) {
+    data += chunk;
+  });
+  request.on('end', function () {
+//    console.log("got data: " + data);
+    var result = "var d = " + data;
+    stream.write("<script>"+ result +"; d();</script>");
+  });
 
-  response.writeHead(200, { 
-    'Content-Type': 'text/html',
-    "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
-    "Pragma":"no-cache",
-    "Expires": 0
 
-     });
+
+  response.writeHead(200, {'Content-Type': 'text/html'});
   response.end("OK", 'utf-8');
 }
 
